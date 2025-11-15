@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fruit Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>        
+</head>
+<body>
+    <div class="container">
+        <h1>AI Fruit Detection</h1>
+        
+        <div class="controls-section">
+            <div class="control-row">
+                <input type="file" id="fileInput" accept="image/*">
+                <button class="btn btn-primary" onclick="uploadImage()">
+                    📤 Upload Image
+                </button>
+                <button class="btn btn-secondary" onclick="openCamera()">
+                    📷 Open Camera
+                </button>
+            </div>
+            
+            <div class="threshold-control">
+                <div class="threshold-label">
+                    <span>Detection Threshold</span>
+                    <span class="threshold-value" id="thresholdValue">0.50</span>
+                </div>
+                <input type="range" id="thresholdSlider" min="0" max="100" value="50" 
+                       oninput="updateThreshold(this.value)">
+            </div>
+        </div>
+
+        <div class="display-section" id="displaySection">
+            <div class="placeholder" id="placeholder">
+                <div class="placeholder-icon">🖼️</div>
+                <div class="placeholder-text">Upload an image or take a photo to detect fruits</div>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div class="loading-text">Analyzing image...</div>
+            </div>
+            
+            <img id="resultImage" alt="Detection Result">
+        </div>
+
+        <div class="detections-info" id="detectionsInfo">
+            <h3>Detections:</h3>
+            <div id="detectionsList"></div>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div id="cameraModal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 20px; color: #667eea;">Camera</h2>
+            <video id="cameraVideo" autoplay playsinline></video>
+            <canvas id="cameraCanvas" style="display: none;"></canvas>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="capturePhoto()">📸 Capture</button>
+                <button class="btn btn-secondary" onclick="closeCamera()">❌ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
